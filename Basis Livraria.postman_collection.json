@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "6b3e5906-326a-4c3b-9e73-8edba470888f",
+		"name": "Basis Livraria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10408349",
+		"_collection_link": "https://orange-meadow-3890.postman.co/workspace/My-Workspace~712ba6db-8893-4722-8a5f-f764e96900d7/collection/10408349-6b3e5906-326a-4c3b-9e73-8edba470888f?action=share&source=collection_link&creator=10408349"
+	},
+	"item": [
+		{
+			"name": "Criar Assunto",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let guid = pm.variables.replaceIn('{{$guid}}');\r",
+							"var name = \"test \" + guid.substr(0,5);\r",
+							"pm.environment.set('name', name);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Criar Assunto [200 OK]\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CHECK Assunto Response Data [OK]\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    var name = pm.environment.get(\"name\");\r",
+							"    pm.expect(data.success).to.eql(true);\r",
+							"    pm.expect(data.data.descricao).to.eql(name);\r",
+							"    pm.expect(data.data.id).to.not.eql(0);\r",
+							"    \r",
+							"    pm.environment.set(\"assunto_id\", parseInt(data.data.id));\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"descricao\": \"{{name}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5006/api/assunto",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5006",
+					"path": [
+						"api",
+						"assunto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Autor",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let guid = pm.variables.replaceIn('{{$guid}}');\r",
+							"var name = \"test \" + guid.substr(0,5);\r",
+							"pm.environment.set('name', name);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Criar Autor [200 OK]\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CHECK Autor Response Data [OK]\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    var name = pm.environment.get(\"name\");\r",
+							"    pm.expect(data.success).to.eql(true);\r",
+							"    pm.expect(data.data.nome).to.eql(name);\r",
+							"    pm.expect(data.data.id).to.not.eql(0);\r",
+							"    pm.environment.set(\"autor_id\", parseInt(data.data.id));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"{{name}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5006/api/autor",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5006",
+					"path": [
+						"api",
+						"autor"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Criar Assunto Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"{{name}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5006/api/autor",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5006",
+							"path": [
+								"api",
+								"autor"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "255"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 02 Dec 2024 19:08:06 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"$id\": \"1\",\n    \"success\": true,\n    \"statusCode\": 200,\n    \"errors\": [],\n    \"data\": {\n        \"$id\": \"2\",\n        \"nome\": \"test 78e94\",\n        \"livros\": [],\n        \"isCreated\": true,\n        \"id\": 12,\n        \"idExterno\": \"4d913d50-dfe1-4b57-bf82-d8c6d3b2d585\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Criar Livro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Criar Autor [200 OK]\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CHECK Autor Response Data [OK]\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.success).to.eql(true);\r",
+							"    pm.expect(data.data.id).to.not.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let guid = pm.variables.replaceIn('{{$guid}}');\r",
+							"var name = \"test \" + guid.substr(0,5);\r",
+							"pm.environment.set('name', name);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"string\",\r\n  \"editora\": \"string\",\r\n  \"edicao\": 0,\r\n  \"anoPublicacao\": \"2024-12-02T19:03:22.829Z\",\r\n  \"autores\": [\r\n    {\r\n      \"id\": {{autor_id}}\r\n    }\r\n  ],\r\n  \"assuntos\": [\r\n    {\r\n      \"id\": {{assunto_id}}\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5006/api/livro",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5006",
+					"path": [
+						"api",
+						"livro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search livros",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let guid = pm.variables.replaceIn('{{$guid}}');\r",
+							"var name = \"test \" + guid.substr(0,5);\r",
+							"pm.environment.set('name', name);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Criar Autor [200 OK]\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CHECK Autor Response Data [OK]\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    var name = pm.environment.get(\"name\");\r",
+							"    pm.expect(data.success).to.eql(true);\r",
+							"    pm.expect(data.data.nome).to.eql(name);\r",
+							"    pm.expect(data.data.id).to.not.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5006/api/livro/search",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5006",
+					"path": [
+						"api",
+						"livro",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Assuntos",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let guid = pm.variables.replaceIn('{{$guid}}');\r",
+							"var name = \"test \" + guid.substr(0,5);\r",
+							"pm.environment.set('name', name);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Criar Autor [200 OK]\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CHECK Autor Response Data [OK]\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    var name = pm.environment.get(\"name\");\r",
+							"    pm.expect(data.success).to.eql(true);\r",
+							"    pm.expect(data.data.nome).to.eql(name);\r",
+							"    pm.expect(data.data.id).to.not.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5006/api/assunto/search",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5006",
+					"path": [
+						"api",
+						"assunto",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Autores",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let guid = pm.variables.replaceIn('{{$guid}}');\r",
+							"var name = \"test \" + guid.substr(0,5);\r",
+							"pm.environment.set('name', name);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Criar Autor [200 OK]\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CHECK Autor Response Data [OK]\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    var name = pm.environment.get(\"name\");\r",
+							"    pm.expect(data.success).to.eql(true);\r",
+							"    pm.expect(data.data.nome).to.eql(name);\r",
+							"    pm.expect(data.data.id).to.not.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5006/api/assunto/search",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5006",
+					"path": [
+						"api",
+						"assunto",
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
